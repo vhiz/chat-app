@@ -31,7 +31,7 @@ export default function Messages() {
         const session = await getSession();
         setSession(session);
       } catch (error) {
-        toast("Something went wrong");
+        toast.error("Something went wrong");
       } finally {
         setLoading(false);
       }

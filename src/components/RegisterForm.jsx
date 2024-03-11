@@ -34,7 +34,7 @@ export default function RegisterForm() {
     setError(null);
     try {
       await axios.post("/api/register", { ...inputs, gender });
-      // router.push("/");
+      router.push("/");
     } catch (error) {
       setError(error.response.data.error);
     } finally {

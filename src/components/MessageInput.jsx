@@ -21,7 +21,7 @@ export default function MessageInput() {
       setMessages([...messages, { ...res.data.message, own: true }]);
       setText("");
     } catch (error) {
-      toast("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }

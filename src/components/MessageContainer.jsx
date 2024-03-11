@@ -4,7 +4,6 @@ import useConversation from "@/store/useConversation";
 import NoChat from "./NoChat";
 import MessageInput from "./MessageInput";
 import { useEffect } from "react";
-import useStore from "@/store/useStore";
 
 export default function MessageContainer() {
   const { selectedConversation, setSelectedConversation } = useConversation();
