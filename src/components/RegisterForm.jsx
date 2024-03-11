@@ -8,30 +8,42 @@ import { useFormState } from "react-dom";
 import Image from "next/image";
 import { register } from "@/actions/auth";
 import { useRouter } from "next/navigation";
-
+import axios from "axios";
 export default function RegisterForm() {
   const [seePassword, setSeePassword] = useState(false);
   const [gender, setGender] = useState("male");
   const [state, formAction] = useFormState(register, undefined);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
-    gender: gender,
   });
 
   const router = useRouter();
-  useEffect(() => {
-    if (state?.success) {
-      router.push("/");
-    }
-  }, [router, state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    try {
+      await axios.post("/api/register", { ...inputs, gender });
+      // router.push("/");
+    } catch (error) {
+      setError(error.response.data.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <form action={formAction} className="mt-4 flex flex-col gap-y-4 w-full">
+    <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-y-4 w-full">
       <label className="input input-bordered flex items-center gap-2">
         <FaUser size={"1rem"} />
         <input
@@ -40,6 +52,7 @@ export default function RegisterForm() {
           placeholder="Username"
           name="username"
           minLength={5}
+          onChange={handleChange}
           required
         />
       </label>
@@ -51,11 +64,12 @@ export default function RegisterForm() {
           placeholder="🔘🔘🔘🔘🔘🔘"
           name="password"
           minLength={5}
+          onChange={handleChange}
           required
         />
         <label
           className="swap swap-rotate"
-          onClick={() => setSeePassword(!seePassword)}
+          onClick={() => setSeePassword((prev) => !prev)}
         >
           <input type="checkbox" />
           <FiEye className="swap-on " />
@@ -80,7 +94,7 @@ export default function RegisterForm() {
         </label>
         <input
           type="radio"
-          name="gender"
+          // name="gender"
           className="hidden radio"
           value={"male"}
           id="male"
@@ -103,18 +117,22 @@ export default function RegisterForm() {
         </label>
         <input
           type="radio"
-          name="gender"
+          // name="gender"
           className="hidden"
           value={"female"}
           id="female"
           checked={gender === "female"}
         />
       </div>
-      <button className="btn btn-active btn-primary text-white">
+      <button
+        disabled={loading}
+        type="submit"
+        className="btn btn-active btn-primary text-white"
+      >
         Register
       </button>
-      {state?.error && (
-        <span className=" text-center text-error text-xl">{state?.error}</span>
+      {error && (
+        <span className=" text-center text-error text-xl">{error}</span>
       )}
     </form>
   );

@@ -17,7 +17,7 @@ export async function POST(request) {
       username: { $regex: new RegExp(`^${username}$`, "i") },
     });
     if (user) {
-      NextResponse.json({ error: "User Already Exist" }, { status: 403 });
+      return NextResponse.json({ error: "User Already Exist" }, { status: 403 });
     }
 
     const girlImg = `https://avatar.iran.liara.run/public/girl?username=${username}`;
