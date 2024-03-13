@@ -13,7 +13,7 @@ export default function MessageContainer() {
   return (
     <>
       {selectedConversation ? (
-        <div className="p-4 h-full flex flex-col justify-between">
+        <div className=" h-full flex flex-col justify-between w-full lg:p-4">
           <div className=" w-full bg-gray-500/80 h-16 flex items-center p-2">
             <span className="text-lg font-bold text-gray-400">To: </span>
             <span className="text-lg font-bold ml-1">

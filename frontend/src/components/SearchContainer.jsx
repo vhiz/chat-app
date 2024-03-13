@@ -30,6 +30,7 @@ export default function SearchContainer() {
       toast.error("No such user");
     }
   }
+  
   return (
     <div className="flex w-full">
       <form

@@ -22,7 +22,7 @@ export default function FriendsList() {
   }, [setFriends]);
 
   return (
-    <div className="flex flex-col gap-y-4 overflow-y-scroll h-[80%] scrollbar-none">
+    <div className="flex flex-col gap-y-4 overflow-y-scroll h-[65%] lg:h-[80%] scrollbar-none w-full mt-3">
       {friends.map((friend) => (
         <FriendItem key={friend?._id} friend={friend} />
       ))}
