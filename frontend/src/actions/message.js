@@ -45,13 +45,8 @@ export const getMessage = async (receiverId) => {
     });
     if (!conversation) return [];
     const messages = await Message.find({ conversationId: conversation._id });
-    const messagesWithOwnField = messages.map((message) => {
-      return {
-        ...message.toObject(),
-        own: session.userId === message.senderId,
-      };
-    });
-    return messagesWithOwnField;
+
+    return messages;
   } catch (error) {
     throw error;
   }

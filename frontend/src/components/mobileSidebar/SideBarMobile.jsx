@@ -5,7 +5,7 @@ import Logout from "../Logout";
 
 export default function SideBarMobile() {
   return (
-    <div className="p-4 flex flex-col justify-center w-full h-full lg:justify-between">
+    <div className="p-4 bg-black/80 flex flex-col justify-center w-full h-full lg:justify-between">
       <SearchContainer />
       <FriendsList />
       <Logout />

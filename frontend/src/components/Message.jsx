@@ -8,7 +8,7 @@ export default function Message({
   session,
 }) {
   return (
-    <div className={`chat mt-2 ${own ? "chat-end" : "chat-start"}`} >
+    <div className={`chat mt-2 ${own ? "chat-end" : "chat-start"}`}>
       <div className="chat-image avatar">
         <div className="relative w-10 h-10 overflow-hidden rounded-full">
           <Image
@@ -20,7 +20,9 @@ export default function Message({
         </div>
       </div>
       <div
-        className={`chat-bubble ${own ? "chat-bubble-primary text-white" : ""}`}
+        className={`chat-bubble ${
+          own ? "chat-bubble-primary text-white" : ""
+        } ${message.shouldShake ? "shake" : ""}`}
       >
         {message.text}
       </div>

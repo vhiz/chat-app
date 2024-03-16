@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { FiSend } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useSocket from "@/store/useSocket";
 
 export default function MessageInput() {
   const { selectedConversation, loading, setLoading, setMessages, messages } =
     useConversation();
+  const { socket, session } = useSocket();
   const [text, setText] = useState("");
 
   const handleSubmit = async (e) => {
@@ -18,8 +20,15 @@ export default function MessageInput() {
         text,
         receiverId: selectedConversation?._id,
       });
-      setMessages([...messages, { ...res.data.message, own: true }]);
+      setMessages([...messages, { ...res.data.message }]);
       setText("");
+
+      socket?.emit("privateMessage", {
+        conversationId: [session.userId, selectedConversation?._id],
+        receiverId: selectedConversation?._id,
+        content: { ...res.data.message },
+        senderName: session.username,
+      });
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

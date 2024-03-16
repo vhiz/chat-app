@@ -63,7 +63,7 @@ export const login = async (previousState, formData) => {
     session.username = user.username;
     session.img = user.img;
     session.isLoggedIn = true;
-
+    
     await session.save();
     redirect("/home");
   } catch (error) {
