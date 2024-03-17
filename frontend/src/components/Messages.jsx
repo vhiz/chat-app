@@ -96,6 +96,7 @@ export default function Messages() {
                 message={message}
                 selectedConversation={selectedConversation}
                 session={session}
+                messages={messages}
               />
             </div>
           ))}

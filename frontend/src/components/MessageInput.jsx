@@ -9,7 +9,7 @@ import useSocket from "@/store/useSocket";
 export default function MessageInput() {
   const { selectedConversation, loading, setLoading, setMessages, messages } =
     useConversation();
-  const { socket, session } = useSocket();
+  const { socket, session, setSendMessage } = useSocket();
   const [text, setText] = useState("");
 
   const handleSubmit = async (e) => {
@@ -29,10 +29,12 @@ export default function MessageInput() {
         content: { ...res.data.message },
         senderName: session.username,
       });
+      setSendMessage(true);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
+      setSendMessage(false);
     }
   };
   return (
